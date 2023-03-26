@@ -1,9 +1,11 @@
 public class SortThread implements Runnable{
     int x;
+    double tmp_x;
     SyncTime syncTime;
 
     public SortThread(int x, SyncTime syncTime){
         this.x = x;
+        this.tmp_x = x>>3;
         this.syncTime = syncTime;
     }
 
@@ -11,10 +13,10 @@ public class SortThread implements Runnable{
     public void run() {
         
         //wait till elapsed time >= time
-        while(System.currentTimeMillis() - syncTime.time < (x<<2)){
+        while(System.currentTimeMillis() - syncTime.time < tmp_x){
 
         }
 
-        System.out.println(x);
+        syncTime.add(x);
     }
 }

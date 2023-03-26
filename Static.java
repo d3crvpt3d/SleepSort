@@ -2,7 +2,7 @@ public class Static{
     public static void main(String[] args) {
 
         int maxValue = 256; //exlusive
-        int arrSize = 10;   //inclusive
+        int arrSize = 10000;   //inclusive
 
         int[] arr = new int[arrSize];
 
@@ -13,24 +13,24 @@ public class Static{
             arr[i] = (int)(maxValue * Math.random());
         }
 
-        //if the arr should be printed before
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i]+" ");
-        }
-        System.out.println();
+        //breakpoint to see array
 
-        SyncTime sync = new SyncTime();
+
+        SyncTime sync = new SyncTime(arrSize);
 
         //fill array with threads
         for(int i = 0; i < arr.length; i++) {
             threads[i] = new Thread(new SortThread(arr[i], sync)); //start new Thread for each element
+            threads[i].start();
         }
 
         sync.time = System.currentTimeMillis();
-        
-        //start all threads
-        for (int i = 0; i < arr.length; i++) {
-            threads[i].start();
+
+        while (System.currentTimeMillis() - sync.time < .1 * arrSize) {
+            
         }
+
+        System.out.println();
+        System.out.println("Time: "+(sync.endTime - sync.time)+"ms");
     }
 }
